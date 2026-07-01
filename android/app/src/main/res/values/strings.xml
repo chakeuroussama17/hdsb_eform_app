@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">HDSB E-Form</string>
+    <string name="title_activity_main">HDSB E-Form</string>
+    <string name="package_name">com.hdsb.eform</string>
+    <string name="custom_url_scheme">com.hdsb.eform</string>
+</resources>
