@@ -34,6 +34,7 @@ import SafetyAdminDashboard from "@/pages/SafetyAdminDashboard";
 import DailyOperationMonitoringForm from "@/pages/WaterTreatmentForm"; // Note: Renamed component
 
 import { useRealtimeNotifications } from "@/useRealtimeNotifications";
+import { initPushNotifications } from "@/pushNotifications";
 
 const queryClient = new QueryClient();
 
@@ -60,6 +61,11 @@ try {
 
 const GlobalNotificationListener = () => {
   useRealtimeNotifications();
+  const { user } = useAuth();
+  // Register this device for native push notifications once the user is known
+  React.useEffect(() => {
+    if (user?.id) initPushNotifications(user.id);
+  }, [user?.id]);
   return null;
 };
 

@@ -204,6 +204,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const logout = useCallback(async () => {
+    // Stop push notifications for this device (must run while still signed in,
+    // so RLS lets us delete our own token row)
+    try {
+      const { removePushToken } = await import("@/pushNotifications");
+      await removePushToken();
+    } catch (e) {
+      console.warn("Could not remove push token:", e);
+    }
     // Ensure we actually tell Supabase to destroy the secure session token
     await supabase.auth.signOut();
     setUser(null);
